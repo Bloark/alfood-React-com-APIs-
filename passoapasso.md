@@ -37,4 +37,39 @@
         console.log(erro)
         })
     }, [])
-```
+```
+12. Paginação devidamente tratada devidamente tratada.
+13. Criando interface de paginação
+```js
+    export interface IPaginacao<T> {
+        count: number
+        next: string
+        previous: string
+        results: T[]
+    }
+```
+
+14. Criado Paginação e função de paginação de restaurantes.
+
+```js
+    const verMais = () => {
+        axios.get<IPaginacao<IRestaurante>>(proximaPagina)
+        .then(resposta => {
+            setRestaurantes([...restaurantes, ...resposta.data.results])
+            setProximaPagina(resposta.data.next)
+        })
+        .catch(erro => {
+            console.log(erro)
+        })
+    }
+
+    return (<section className={style.ListaRestaurantes}>
+        <h1>Os restaurantes mais <em>bacanas</em>!</h1>
+        {restaurantes?.map(item => <Restaurante restaurante={item} key={item.id} />)}
+        {proximaPagina && <button onClick={verMais}>
+        Ver Mais
+        </button>}
+    </section>)
+```
+15. 
+
